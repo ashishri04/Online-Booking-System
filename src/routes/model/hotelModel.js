@@ -1,0 +1,1 @@
+//name, address, hotel's email, description, ratings, facilities, room number, room type, availablity(T/F), 
