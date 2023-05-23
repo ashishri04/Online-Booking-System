@@ -36,7 +36,7 @@ const bookingSchema = new mongoose.Schema({
         type:ObjectId,
         ref:"User",
         required:true
-    },
+    }
     
     
 },{ timestamps: true });

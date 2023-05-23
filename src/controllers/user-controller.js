@@ -103,5 +103,5 @@ const userLogin =async function(req,res){
           return res.status(500).send({ status: false, message: error.message });
         }
       };
-//
-module.exports = { userCreation ,userLogin,getUser,getUserById}
+//uo
+module.exports = { userCreation ,userLogin,getUser,getUserById,}
