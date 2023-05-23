@@ -2,28 +2,28 @@ const mongoose = require("mongoose")
 const userSchema = new mongoose.Schema({
     name:{
         type:String,
-        require:true
+        required:true
     },
     email:{
         type:String,
-        require:true
+        required:true
     },
     password:{
         type:String,
-        require:true
+        required:true
     },
     age:{
         type:Number,
-        require:true
+        required:true
     },
     phoneNumber:
     {
         type:Number,
-        require:true
+        required:true
     },
     gender:{
-        enum:[Male,female,others],
-        require: true
+        enum:["Male","Female","Others"],
+        required: true
     }
 },{ timestamps: true })
 

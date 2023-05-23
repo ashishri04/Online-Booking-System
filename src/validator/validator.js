@@ -20,5 +20,12 @@ const validPhone = function(value){
     return value.match(/^[0]?[789]\d{9}$/)
 }
 
+const isValidRequestBody = function(requestBody) {
+    return Object.keys(requestBody).length > 0; // it checks, is there any key is available or not in request body
+}
 
-module.exports = {validString, validEmail, validPassword, validPhone, validNumber }
+const isValidObjectId = function(objectId) {
+    return mongoose.Types.ObjectId.isValid(objectId)
+}
+
+module.exports = {validString, isValidObjectId,isValidRequestBody, validEmail, validPassword, validPhone, validNumber }
