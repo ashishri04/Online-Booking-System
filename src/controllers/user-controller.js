@@ -1,6 +1,8 @@
 //create user,login user, get all user, get user by id, delete user, update user
 
 const express = require('express')
+const jwt =require('jsonwebtoken')
+const mongoose= require('mongoose')
 const  userModel = require('../model/userModel')
 
 //create user
@@ -103,5 +105,5 @@ const userLogin =async function(req,res){
           return res.status(500).send({ status: false, message: error.message });
         }
       };
-//uo
+//update user
 module.exports = { userCreation ,userLogin,getUser,getUserById,}
