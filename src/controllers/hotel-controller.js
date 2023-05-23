@@ -1,4 +1,3 @@
-// create hotel, get all hotel, get hotel by id, update hotel, delete hotel by Id
 
 const hotelModel = require("../model/hotelModel")
 const { findByIdAndUpdate } = require("../model/userModel")

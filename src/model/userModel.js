@@ -22,10 +22,9 @@ const userSchema = new mongoose.Schema({
         type: Number,
         required: true
     },
-    gender: {
-        type : String,
-        enum: ["Male", "Female", "Others"],
-        required: true
+    gender:{
+        enum:["Male","Female","Others"],
+        require: true
     }
 }, { timestamps: true })
 

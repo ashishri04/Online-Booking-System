@@ -2,6 +2,7 @@
 const  mongoose = require("mongoose")
 const hotel = require("./hotelModel")
 const user =require('./userModel')
+const ObjectId = mongoose.Schema.Types.ObjectId
 
 const bookingSchema = new mongoose.Schema({
     hotelName:{
@@ -33,7 +34,7 @@ const bookingSchema = new mongoose.Schema({
     },
     userId:{
         type:ObjectId,
-        ref:user,
+        ref:"User",
         required:true
     },
     
