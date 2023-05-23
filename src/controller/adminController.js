@@ -22,6 +22,6 @@ const createAdmin= async (req, res){
     return response.status(201).send({status:true, message:"Admin information is successfully created", data:createInfo})
 
     }catch(error){
-       return res.status(500).send({status:false,  error: error.message);
+       return res.status(500).send({status:false,  error: error.message});
     }
 }
