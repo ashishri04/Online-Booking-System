@@ -15,7 +15,6 @@ const userSchema = new mongoose.Schema({
     age:{
         type:Number,
         require:true
-
     },
     phoneNumber:
     {
