@@ -74,13 +74,13 @@ const updateHotel = async (req, res) => {
 
         let isHotelPresent = await hotelModel.findById(hotelId)
 
+    
         if (!isHotelPresent) return res.status(404).send({ status: false, message: "Hotel Id not exist" })
 
         if (!mongoose.isValidObjectId(hotelId)) return res.status(400).send({ status: false, message: "Hotel Id not valid" })
 
-        let newData = await findByIdAndUpdate({ _id: hotelId }, { $set: { hotelName: hotelName } }, { new: true })
+        let newData = await hotelModel.findByIdAndUpdate({ _id: hotelId }, { $set: { hotelName, address, rating, room_type, availability },$push : {description, facilities} }, { new: true })
         return res.status(201).send({ status: true, message: "Hotel Update Seccessfully", newData: newData })
-
 
     }
     catch (error) {

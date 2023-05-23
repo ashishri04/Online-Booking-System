@@ -17,10 +17,10 @@ const hotelSchema = new mongoose.Schema({
         required: true,
         trim: true
     },
-    description: {
+    description: [{
         type: String,
         required: true
-    },
+    }],
     rating: {
         type: Number,
         required: true
