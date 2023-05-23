@@ -1,4 +1,5 @@
 const mongoose = require("mongoose")
+
 const userSchema = new mongoose.Schema({
     name:{
         type:String,
@@ -15,7 +16,6 @@ const userSchema = new mongoose.Schema({
     age:{
         type:Number,
         require:true
-
     },
     phoneNumber:
     {
@@ -23,7 +23,7 @@ const userSchema = new mongoose.Schema({
         require:true
     },
     gender:{
-        enum:[Male,female,others],
+        enum:["Male","Female","Others"],
         require: true
     }
 },{ timestamps: true })

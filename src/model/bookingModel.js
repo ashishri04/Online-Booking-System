@@ -2,6 +2,7 @@
 const  mongoose = require("mongoose")
 const hotel = require("./hotelModel")
 const user =require('./userModel')
+const ObjectId = mongoose.Schema.Types.ObjectId
 
 const bookingSchema = new mongoose.Schema({
     hotelName:{
@@ -9,35 +10,35 @@ const bookingSchema = new mongoose.Schema({
     },
     phone:{
         type:Number,
-        require:true 
+        required:true 
     }, 
     idProof:{
         type:String,
-        require:true
+        required:true
     },
     roomNumber:{
         type:Number,
-        require:true
+        required:true
     },
     price:{
         type:Number,
-        require:true
+        required:true
     },
     checkIn:{
         type:Date,
-        require:true
+        required:true
     },
     checkOut:{
         type:Date,
-        require:true
+        required:true
     },
     userId:{
         type:ObjectId,
-        ref:user,
-        require:true
+        ref:"User",
+        required:true
     },
     
     
 },{ timestamps: true });
 const booking = mongoose.model('booking',bookingSchema)
-module.export = booking
+module.exports = booking
