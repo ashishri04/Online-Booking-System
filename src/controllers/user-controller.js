@@ -1,6 +1,5 @@
 //create user,login user, get all user, get user by id, delete user, update user
 
-const express = require('express')
 const jwt =require('jsonwebtoken')
 const mongoose= require('mongoose')
 const  userModel = require('../model/userModel')
@@ -106,4 +105,45 @@ const userLogin =async function(req,res){
         }
       };
 //update user
-module.exports = { userCreation ,userLogin,getUser,getUserById,}
+
+const updateUser = async function(req, res) {
+    try {
+        let data = req.body
+        let { name,email,password,age,phoneNumber,gender} = data
+        const userId = req.params.userId
+
+        let isUser = await userModel.findById(userId)
+
+        if (!isUser) return res.status(404).send({ status: false, message: "UserId does not exist" })
+
+        if (!mongoose.isValidObjectId(userId)) return res.status(400).send({ status: false, message: "UserId not valid" })
+
+        let updatedData = await findByIdAndUpdate({ _id: userId }, { $set: {data: data } }, { new: true })
+        return res.status(201).send({ status: true, message: "User Update Seccessfully", updatedData : updatedData  })
+
+
+    }
+    catch (error) {
+        return res.status(500).send({ status: false, message: error.message });
+      }
+}
+// delete user  
+
+const deleteUser = async function(req,res){
+    try {
+        let {userId}=req.body
+        if(!userId){
+        return res.status(400).send({status:false,message:"Pls provide userId"})
+        }
+        let userExists = await userModel.findOne({userId})
+        if(!userExists){
+            return res.status(404).send({status:false,message:"No user found"})
+        }
+        await userModel.deleteOne({userId})
+        return res.status(200).send({status:true})
+    } catch (error) {
+        return res.status(500).send({ status: false, message: error.message })
+    }
+}
+
+module.exports = { userCreation ,userLogin,getUser,getUserById,updateUser,deleteUser}

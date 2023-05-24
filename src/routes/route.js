@@ -3,14 +3,14 @@ const router = express.Router()
 const hotelController = require("../controllers/hotel-controller") 
 const userController = require('../controllers/user-controller')
 
-//=================user ===================
+//=================user ============================
 
 router.post("/createUser", userController.userCreation)
 router.post("/loginUser", userController.userLogin)
 router.get("/getallUser", userController.getUser)
 router.get("/getUser/:userId", userController.getUserById)
-
-
+router.put("/updateUser", userController.updateUser)
+router.delete("/deleteUser", userController.deleteUser)
 
 
 //================hotel ===============================
