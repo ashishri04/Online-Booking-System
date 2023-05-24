@@ -1,5 +1,6 @@
 //create user,login user, get all user, get user by id, delete user, update user
-
+const jwt = require('jsonwebtoken')
+const mongoose = require('mongoose')
 const userModel = require('../model/userModel')
 
 //create user
@@ -8,7 +9,7 @@ const userCreation = async function (req, res) {
 
     try {
         let data = req.body
-        let { name, email, password, age, phoneNumber, gender, } = data
+        let { name, email, password, age, phoneNumber, gender } = data
         if (!name) {
             return res.status(400).send({ status: false, message: "Name is required" })
         }
