@@ -1,39 +1,9 @@
-// //hotel name, phone, id proof, room number, price, checkin, checkout, userId, date,
-// const  mongoose = require("mongoose")
-// const hotel = require("./hotelModel")
-// const user =require('./userModel')
 
-
-// const userSchema = new mongoose.Schema({
-//     name: {
-//         type: String,
-//         required: true
-//     },
-//     email: {
-//         type: String,
-//         required: true
-//     },
-//     password: {
-//         type: String,
-//         required: true
-//     },
-//     age: {
-//         type: Number,
-//         required: true
-//     },
-//     phoneNumber:
-//     {
-//         type: Number,
-//         required: true
-//     },
-//     gender: {
-//         type : String,
-//         enum: ["Male", "Female", "Others"],
-// Aman Mohadikar2:54 PM
 //hotel name, phone, id proof, room number, price, checkin, checkout, userId, date,
 const  mongoose = require("mongoose")
 const hotel = require("./hotelModel")
 const user =require('./userModel')
+const ObjectId = mongoose.Schema.Types.ObjectId
 
 const bookingSchema = new mongoose.Schema({
     hotelName:{
@@ -65,7 +35,7 @@ const bookingSchema = new mongoose.Schema({
     },
     userId:{
         type:ObjectId,
-        ref:user,
+        ref:"User",
         required:true
     },
     
