@@ -1,9 +1,8 @@
-// create hotel, get all hotel, get hotel by id, update hotel, delete hotel by Id
-
 const hotelModel = require("../model/hotelModel")
-const { findByIdAndUpdate } = require("../model/userModel")
 const validator = require("../validator/validator")
 const mongoose = require("mongoose")
+
+
 
 const createHotel = async (req, res) => {
     try {
@@ -33,11 +32,10 @@ const createHotel = async (req, res) => {
 }
 
 
+
 const getAllHotel = async (req, res) => {
     try {
-        let obj = {
-            availability: true
-        }
+        let obj = { availability: true }
 
         const data = await hotelModel.find(obj)
         if (data.length < 1) return res.status(200).send({ status: true, message: "Hotels are not available" })
@@ -47,6 +45,7 @@ const getAllHotel = async (req, res) => {
         return res.status(500).send({ status: false, message: error.message })
     }
 }
+
 
 
 const getHotelById = async (req, res) => {
@@ -74,13 +73,13 @@ const updateHotel = async (req, res) => {
 
         let isHotelPresent = await hotelModel.findById(hotelId)
 
+
         if (!isHotelPresent) return res.status(404).send({ status: false, message: "Hotel Id not exist" })
 
         if (!mongoose.isValidObjectId(hotelId)) return res.status(400).send({ status: false, message: "Hotel Id not valid" })
 
-        let newData = await findByIdAndUpdate({ _id: hotelId }, { $set: { hotelName: hotelName } }, { new: true })
+        let newData = await hotelModel.findByIdAndUpdate({ _id: hotelId }, { $set: { hotelName, description, address, rating, room_type, availability }, $push: { facilities } }, { new: true })
         return res.status(201).send({ status: true, message: "Hotel Update Seccessfully", newData: newData })
-
 
     }
     catch (error) {
@@ -89,6 +88,21 @@ const updateHotel = async (req, res) => {
 }
 
 
+const deleteHotel = async (req, res) => {
+    try {
+        const hotelId = req.params.hotelId
+        if (!mongoose.isValidObjectId(hotelId)) return res.status(400).send({ status: false, message: "Hotel Id not valid" })
+        let isIdPresent = await hotelModel.findOne({ _id: hotelId })
+        if (!isIdPresent) return res.status(404).send({ status: false, message: "Hotel Id not exist" })
+        await hotelModel.findByIdAndDelete({ _id: hotelId })
+        return res.status(200).send({ status: false, message: "Hotel delete Successfully" })
+    }
+    catch (error) {
+        return res.status(500).send({ status: false, message: error.message })
+    }
+}
 
-module.exports = { createHotel, getAllHotel, getHotelById, updateHotel }
+
+
+module.exports = { createHotel, getAllHotel, getHotelById, updateHotel, deleteHotel }
 

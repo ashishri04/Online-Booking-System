@@ -1,6 +1,7 @@
 // create booking, get all booking, get booking by id, update booking by id, delete booking by booking id and user id
 const bookingModel= require('../model/bookingModel');
 const userModel= require("../model/userModel");
+const mongoose=require("mongoose");
 const {validString, isValidObjectId, isValidRequestBody,  validPhone, validNumber}=require("../validator/validator");
 
 
