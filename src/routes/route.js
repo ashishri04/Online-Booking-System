@@ -1,5 +1,16 @@
 const express = require("express")
 const router = express.Router()
+const{createBooking, getAllBookings, getBookingById, updateBooking, deleteBooking}=require('../controllers/booking-controller')
+const hotelController = require("../controllers/hotel-controller") 
+
+//--------------------bookings----------------------------------
+router.post('/booking',createBooking);
+router.get('/getAllBookings', getAllBookings);
+router.get('/getBookingsById/:id', getBookingById);
+router.put('/updateBookings/:id', updateBooking);
+router.delete('/deleteBooking/:id',deleteBooking)
+
+//--------------------hotel--------------------------------------
 const hotelController = require("../controllers/hotel-controller")
 const userController = require('../controllers/user-controller')
 
