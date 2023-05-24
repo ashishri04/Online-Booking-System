@@ -14,6 +14,7 @@ const bookingSchema = new mongoose.Schema({
     }, 
     idProof:{
         type:String,
+        enum:["adharCard","votingCard","panCard","Other"],
         required:true
     },
     roomNumber:{
@@ -35,7 +36,7 @@ const bookingSchema = new mongoose.Schema({
     userId:{
         type:ObjectId,
         ref:"User",
-        required:true
+        required:true 
     }
     
     
