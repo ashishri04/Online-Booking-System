@@ -1,3 +1,4 @@
+const mongoose = require ("mongoose")
 const validNumber = function(value){
     if(typeof value === 'undefined' || value === null) return false
     if(typeof value !== "number") return false

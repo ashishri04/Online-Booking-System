@@ -1,7 +1,7 @@
 // create booking, get all booking, get booking by id, update booking by id, delete booking by booking id and user id
 const bookingModel= require('../model/bookingModel');
 const userModel= require("../model/userModel");
-const mongoose=require("mongoose");
+//const mongoose=require("mongoose");
 const {validString, isValidObjectId, isValidRequestBody,  validPhone, validNumber}=require("../validator/validator");
 
 
@@ -14,7 +14,7 @@ if(!isValidRequestBody(data)) return res.status(400).send({status:false,message:
 if(!isValidRequestBody(userId)) return res.status(404).send({ status: false, message: "User Id is missing" });
 if(!isValidObjectId(userId)) return res.status(400).send({status:false,message:"Price is invalid"});
 
-const findUser= await userModel.findById({userId:_id})
+const findUser= await userModel.findById({_id:userId})
 if(!findUser) return res.status(404).send({status:false, message:"User not fount"});
 
 if(!isValidRequestBody(hotelName)) return res.status(404).send({ status: false, message: "Please provide Hotel name" });
@@ -26,10 +26,10 @@ if(!validPhone(phone)) return res.status(400).send({status:false, message:"Phone
 if(!isValidRequestBody(idProof)) return res.status(404).send({ status: false, message: "Please provide idProof" });
 if(!validString(idProof)) return res.status(400).send({status:false, message:"idProof is invalid"});
 
-if(!isValidRequestBody(roomNumber)) return res.status(404).send({ status: false, message: "Please provide room number" });
+//if(!isValidRequestBody(roomNumber)) return res.status(404).send({ status: false, message: "Please provide room number" });
 if(!validNumber(roomNumber)) return res.status(400).send({status:false, message:"Room number is invalid"});
 
-if(!isValidRequestBody(price)) return res.status(404).send({ status: false, message: "Please provide price" });
+//if(!isValidRequestBody(price)) return res.status(404).send({ status: false, message: "Please provide price" });
 if(!validNumber(price)) return res.status(400).send({status:false,message:"Price is invalid"});
 
 if(!isValidRequestBody(checkIn)) return res.status(404).send({ status: false, message: "Please provide checkIn time" });
