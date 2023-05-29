@@ -9,25 +9,19 @@ const createHotel = async (req, res) => {
     try {
 
         let data = req.body
-        let { hotelName, address, email, description, rating, rooms, room_type, adminId } = data
-        if (!(hotelName && address && email && description && rating && rooms && room_type)) return res.status(400).send({ status: false, message: "All field is mandatory" })
+        let { hotelName, address, email,imageUrl, description, rating, rooms, room_type } = data
+        if (!(hotelName && address &&imageUrl && email && description && rating && rooms && room_type)) return res.status(400).send({ status: false, message: "All field is mandatory" })
 
         if (!validator.validString(hotelName)) return res.status(404).send({ status: false, message: "Hotel Name must be valid" })
         if (!validator.validString(address)) return res.status(404).send({ status: false, message: "Address must be valid" })
         if (!validator.validEmail(email)) return res.status(404).send({ status: false, message: "Email must be valid" })
-        if (!validator.validString(description)) return res.status(404).send({ status: false, message: "description must be valid" })
         if (!validator.validNumber(rating)) return res.status(404).send({ status: false, message: "Rating must be valid" })
 
         if (room_type != "single" && room_type != "double" && room_type != "suite") return res.status(404).send({ status: false, message: "Room type must be valid" })
 
         const isEmailPresent = await hotelModel.findOne({ email: email })
         if (isEmailPresent) return res.status(404).send({ status: false, message: "Email is already exist" })
-
-        if(!adminId) return res.status(400).send({ status: false, message: "Admin Id not present" })
-        if(!validator.isValidObjectId(adminId)) return res.status(400).send({status : false, message : "Admin Id not valid"})
-        let isAdminIdPresent = await adminModel.findOne({_id : adminId}) 
-        if(!isAdminIdPresent) return res.status(404).send({ status: false, message: "Admin Id not exist" })
-
+      
         let newData = await hotelModel.create(data)
         return res.status(200).send({ status: true, message: newData })
     }
@@ -37,19 +31,36 @@ const createHotel = async (req, res) => {
 }
 
 
-
 const getAllHotel = async (req, res) => {
+    let hotels;
+  
     try {
-        let obj = { availability: true }
+      hotels = await hotelModel.find();
+    } catch (err) {
+      return console.log(err);
+    }
+  
+    if (!hotels) {
+      return res.status(404).json({ message: "Request Failed" });
+    }
+    return res.status(200).json({ hotels });
+  };
+  
 
-        const data = await hotelModel.find(obj)
-        if (data.length < 1) return res.status(200).send({ status: true, message: "Hotels are not available" })
-        return res.status(200).send({ status: true, message: data })
-    }
-    catch (error) {
-        return res.status(500).send({ status: false, message: error.message })
-    }
-}
+
+// const getAllHotel = async (req, res) => {
+//     try {
+//         let obj = { availability: true }
+
+//         const hotels = await hotelModel.find(obj)
+//         if(!hotels) return res.status(404).send({message : "No hotels found"})
+//         if (hotels.length < 1) return res.status(200).send({ status: true, message: "Hotels are not available" })
+//         return res.status(200).json({ hotels })
+//     }
+//     catch (error) {
+//         return res.status(500).send({ status: false, message: error.message })
+//     }
+// }
 
 
 

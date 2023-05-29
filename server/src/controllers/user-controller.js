@@ -3,6 +3,7 @@
 const jwt = require('jsonwebtoken')
 const userModel = require('../model/userModel')
 const bcrypt = require("bcrypt")
+const bookingModel = require("../model/bookingModel")
 const { validString, isValidObjectId, isValidRequestBody, validEmail, validPassword, validPhone, validNumber } = require("../validator/validator");
 
 

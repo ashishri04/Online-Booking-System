@@ -1,15 +1,14 @@
 
 //hotel name, phone, id proof, room number, price, checkin, checkout, userId, date,
 const mongoose = require("mongoose")
-const hotel = require("./hotelModel")
-const user = require('./userModel')
-const ObjectId = mongoose.Schema.Types.ObjectId
+
+const ObjectId =  mongoose.Types.ObjectId
 
 
 const bookingSchema = new mongoose.Schema({
-    hotelName: {
+    hotelId: {
         type: mongoose.Types.ObjectId,
-        ref: "hotel",
+        ref: "Hotel",
         required: true,
     },
     phone: {
@@ -33,12 +32,16 @@ const bookingSchema = new mongoose.Schema({
         type: Date,
         required: true
     },
+    checkOut: {
+        type: Date,
+        required: true
+    },
     userId: {
         type: ObjectId,
-        ref: "user",
+        ref: "User",
         required: true
     }
 
 }, { timestamps: true });
-const booking = mongoose.model('booking', bookingSchema)
+const booking = mongoose.model('Booking', bookingSchema)
 module.exports = booking

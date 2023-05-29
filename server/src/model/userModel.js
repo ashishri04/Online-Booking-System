@@ -26,11 +26,8 @@ const userSchema = new mongoose.Schema({
         enum: ["Male", "Female", "Others"],
         required: true
     },
-    bookings: [{
-        type: mongoose.Types.ObjectId,
-        ref: "booking"
-    }]
+    bookings: [{ type: mongoose.Types.ObjectId, ref: "Booking" }]
 }, { timestamps: true })
 
-const User = mongoose.model('user', userSchema)
+const User = mongoose.model('User', userSchema)
 module.exports = User

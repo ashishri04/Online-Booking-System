@@ -17,8 +17,8 @@ const adminSchema = new mongoose.Schema({
     addedHotels: [
         {
             type: mongoose.Types.ObjectId,
-            ref: "hotel",
+            ref: "Hotel",
         }],
 }, { timestamps: true });
 
-module.exports = mongoose.model('admin', adminSchema);
+module.exports = mongoose.model('Admin', adminSchema);
