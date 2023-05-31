@@ -9,7 +9,7 @@ const adminController = require("../controllers/admin-controller")
 
 //--------------------Admin--------------------------------------
 router.post("/createAdmin", adminController.createAdmin)
-router.get("/loginAdmin", adminController.loginAdmin)
+router.post("/loginAdmin", adminController.loginAdmin)
 
 
 //=================user ============================

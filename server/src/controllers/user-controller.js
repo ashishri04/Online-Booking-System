@@ -40,7 +40,7 @@ const userCreation = async function (req, res) {
 
         const createdUser = await userModel.create(data)
 
-        return res.status(201).send({ status: true, message: "User is successfully created", data: createdUser })
+        return res.status(201).send({ status: true, message: "User is successfully created", data: createdUser, id: createdUser._id })
     }
     catch (error) {
         return res.status(500).send({ status: false, error: error.message });
@@ -64,7 +64,7 @@ const userLogin = async function (req, res) {
         if (!isPasswordPresent) return res.status(404).send({ status: false, message: "Password not correct" })
 
         let token = jwt.sign({ isEmailPresent: isEmailPresent._id }, "isEmailPresentmodel")
-        return res.status(200).send({ status: true, message: "Login Sunccessfully", token: token })
+        return res.status(200).send({ status: true, message: "Login Sunccessfully", token : token, id: isEmailPresent._id })
 
     }
     catch (err) {

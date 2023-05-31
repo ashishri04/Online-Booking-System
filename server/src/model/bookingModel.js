@@ -1,7 +1,4 @@
-
-//hotel name, phone, id proof, room number, price, checkin, checkout, userId, date,
 const mongoose = require("mongoose")
-
 const ObjectId =  mongoose.Types.ObjectId
 
 

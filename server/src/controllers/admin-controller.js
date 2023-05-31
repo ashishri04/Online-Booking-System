@@ -4,51 +4,47 @@ const adminModel = require('../model/adminModel');
 const bcrypt = require("bcrypt")
 const jwt = require("jsonwebtoken")
 
+
+
 const createAdmin = async (req, res) => {
-    try {
-        let data = req.body;
-        let { name, email, password } = data;
-        if (!name) {
-            return res.status(400).send({ status: false, message: "Enter Your name" })
-        }
-        if (!email) {
-            return res.status(400).send({ status: false, message: "Enter Your email" });
-        }
+    const data = req.body
+    const { email, password } = data
 
-        const findEmail = await adminModel.findOne({ email: email })
-        if (findEmail) { return res.status(400).send({ status: false, message: `${email} already exist` }) }
-        if (!password) {
-            return res.status(400).send({ status: false, message: "Enter the password" });
-        }
+    if (!email && !password) return res.status(422).json({ message: "Invalid Inputs" });
 
-        data.password = await bcrypt.hash(password, 10)
+    let existingAdmin = await adminModel.findOne({ email });
 
-        const createInfo = await adminModel.create(data)
+    if (existingAdmin) return res.status(400).json({ message: "Admin already exists" });
 
-        return res.status(201).send({ status: true, message: "Admin information is successfully created", data: createInfo })
+    const hashedPassword = await bcrypt.hash(password, 10);
+    let admin = new adminModel({ email, password: hashedPassword });
+    admin = await admin.save();
 
-    } catch (error) {
-        return res.status(500).send({ status: false, error: error.message });
-    }
-}
+    if (!admin) return res.status(500).json({ message: "Unable to store admin" });
+
+    return res.status(201).json({ admin });
+};
 
 
 
 const loginAdmin = async (req, res) => {
-        let data = req.body
-        let { email, password } = data
-        if (!email && !password) return res.status(400).send({ status: false, message: "email or password not present" })
+    let data = req.body
+    let { email, password } = data
+    if (!email && !password) return res.status(400).send({ status: false, message: "email or password not present" })
 
-        let isEmailPresent = await adminModel.findOne({email})
-        if (!isEmailPresent) return res.status(404).send({ status: false, message: "Email not exist" })
+    let isEmailPresent = await adminModel.findOne({ email })
+    if (!isEmailPresent) return res.status(404).send({ status: false, message: "Email not exist" })
 
-        let isPasswordPresent = await bcrypt.compare(password, isEmailPresent.password)
-        if (!isPasswordPresent) return res.status(404).send({ status: false, message: "Password not correct" })
+    let isPasswordPresent = bcrypt.compare(password, isEmailPresent.password)
+    if (!isPasswordPresent) return res.status(404).send({ status: false, message: "Password not correct" })
 
-        let token = jwt.sign({ isEmailPresent: isEmailPresent._id }, "isEmailPresentmodel")
-        return res.status(200).send({ status: true, message: "Login Sunccessfully", token: token })
-   
+    let token = jwt.sign({ id: isEmailPresent._id }, "isEmailPresentmodel")
+    return res
+        .status(200)
+        .json({ message: "Authentication Complete", token, id: isEmailPresent._id });
+
 }
+
 
 
 
