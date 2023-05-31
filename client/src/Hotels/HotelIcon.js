@@ -1,7 +1,8 @@
 import { Button, CardActions, Typography, CardContent, Card } from '@mui/material'
 import React from 'react'
+import { Link } from 'react-router-dom'
 
-const HotelIcon = ({ hotelName, imageUrl, room_type, id }) => {
+const HotelIcon = ({ hotelName, imageUrl, hotelId }) => {
     return (
         <Card sx={{ margin: 2, width: 250, height: 320, borderRadius: 5, ":hover": { boxShadow: "10px 10px 20px #ccc" } }}>
 
@@ -9,11 +10,10 @@ const HotelIcon = ({ hotelName, imageUrl, room_type, id }) => {
 
             <CardContent>
                 <Typography gutterBottom variant="h5" component="div">{hotelName}</Typography>
-                <Typography variant="body2" color="text.secondary">{room_type}</Typography>
             </CardContent>
 
             <CardActions>
-                <Button size="small" color="primary">Share</Button>
+            <Button variant='contained' fullWidth LinkComponent={Link} to={`/booking/${hotelId}`} sx={{ margin: "auto" }} size="small">Book</Button>
             </CardActions>
         </Card>
     )

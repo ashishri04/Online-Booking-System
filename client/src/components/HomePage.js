@@ -16,6 +16,7 @@ const HomePage = () => {
 
     return (
         <Box height={"100%"} width={"100%"} marginTop={"2px"} margin={"auto"}>
+
             <Box margin={"auto"} width="80%" height={"40vh"} padding={2}>
                 <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTkKfpiaPf5Wp0AvpFd8rrsZMCkDCLDRVeMZQ&usqp=CAU" alt="Hotel" width={"100%"} height={"100%"} />
             </Box>
@@ -29,8 +30,6 @@ const HomePage = () => {
                     <HotelIcon id={hotel.id} hotelName={hotel.hotelName} imageUrl={hotel.imageUrl} key={index} />
                 ))}
             </Box>
-
-
 
             <Box display="flex" padding={5} margin="auto">
                 <Button LinkComponent={Link} to="/hotels" variant="outlined" sx={{ margin: "auto", color: "#2b2d42" }}>View All Hotels</Button>
